@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee/employee';
 import { environtment } from '../../../environtment/environtment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -21,14 +21,24 @@ export class EmployeeService {
   }
 
   saveEmployee(employee:Employee) {
-    return this.http.post(`${environtment.apiURl}/employee`, employee);
+    return this.http.post(`${environtment.apiURl}/employee`, employee).pipe(
+      catchError(this.handleError)
+    );
   }
 
   updateEmployee(employee:Employee): Observable<Employee> {
-    return this.http.put(`${environtment.apiURl}/employee/${employee.employeeId}`, employee);
+    return this.http.put(`${environtment.apiURl}/employee/${employee.employeeId}`, employee).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteEmployee(id: number | undefined): Observable<any> {
     return this.http.delete(`${environtment.apiURl}/employee/${id}`, {responseType: 'text'});
+  }
+
+
+  private handleError(error: HttpErrorResponse) {
+    console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+    return throwError(error);
   }
 }

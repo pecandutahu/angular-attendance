@@ -45,7 +45,7 @@ export class EmployeeListsComponent implements OnInit {
   
   addEmployee(): void {
     const modalRef = this.modalService.open(EmployeeModalComponent);
-    modalRef.componentInstance.employee = { employeeId: 0, nik: '', name: '', unit: '' };
+    modalRef.componentInstance.employee = { employeeId: null, nik: '', name: '', unit: '' };
     modalRef.componentInstance.refreshData.subscribe(() => this.loadEmployees());
     modalRef.result.then((result) => {
       if (result) {
