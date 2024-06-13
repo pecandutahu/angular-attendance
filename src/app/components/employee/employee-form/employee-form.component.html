@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>Employee List</h2>
+    <ul>
+      <li *ngFor="let employee of employees">
+        {{ employee.name }} - {{ employee.unit }}
+        <button (click)="startEdit(employee)">Edit</button>
+        <button (click)="deleteEmployee(employee.employeeId)">Delete</button>
+      </li>
+    </ul>
+  
+    <h3>Add Employee</h3>
+    <form (ngSubmit)="addEmployee()">
+      <label for="name">Name:</label>
+      <input id="name" [(ngModel)]="newEmployee.name" name="name" required>
+      <label for="unit">Unit:</label>
+      <input id="unit" [(ngModel)]="newEmployee.unit" name="unit" required>
+      <button type="submit">Add</button>
+    </form>
+  
+    <div *ngIf="editEmployee">
+      <h3>Edit Employee</h3>
+      <form (ngSubmit)="updateEmployee()">
+        <label for="editName">Name:</label>
+        <input id="editName" [(ngModel)]="editEmployee.name" name="editName" required>
+        <label for="editUnit">Unit:</label>
+        <input id="editUnit" [(ngModel)]="editEmployee.unit" name="editUnit" required>
+        <button type="submit">Update</button>
+        <button (click)="editEmployee = null" type="button">Cancel</button>
+      </form>
+    </div>
+</div>
+  

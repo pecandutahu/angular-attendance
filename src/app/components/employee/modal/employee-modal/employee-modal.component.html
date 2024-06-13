@@ -1,0 +1,32 @@
+
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalTitleId">
+                Tambah / Edit Karyawan
+            </h5>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close" (click)="activeModal.dismiss('Cross click')"
+            ></button>
+        </div>
+        <div class="modal-body">
+            <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+            <div class="form-group">
+                <label for="name">NIK</label>
+                <input type="text" class="form-control" id="nik" name="nik" [(ngModel)]="employee.nik" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="employee.name" required>
+            </div>
+            <div class="form-group">
+                <label for="position">Unit</label>
+                <input type="text" class="form-control" id="unit" name="unit" [(ngModel)]="employee.unit" required>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Batal</button>
+        </div>

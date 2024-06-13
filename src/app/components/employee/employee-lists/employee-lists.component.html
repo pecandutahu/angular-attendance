@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Daftar Karyawan</h2>
+    <div>
+        <button class="btn btn-primary" (click)="addEmployee()"> Tambah Karyawan</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>NIK</th>
+            <th>Nama</th>
+            <th>Unit</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ employee.nik }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.unit }}</td>
+            <td>
+                <a routerLink="/employees/{{employee.employeeId}}" class="btn btn-info">View</a>
+                <a class="btn btn-success" (click)="openModal(employee)">Edit</a>
+                <button class="btn btn-danger" (click)="deleteEmployee(employee.employeeId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

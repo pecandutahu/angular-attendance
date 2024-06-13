@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        
+        <div *ngIf="employee">
+            <h2>Detail Karyawan</h2>
+            <p><strong>NIK:</strong> {{ employee.nik }}</p>
+            <p><strong>Nama:</strong> {{ employee.name }}</p>
+            <p><strong>Posisi:</strong> {{ employee.unit }}</p>
+            <button class="btn btn-primary" (click)="goBack()">Kembali</button>
+        </div>
+    </div>
+
+</div>
+  
