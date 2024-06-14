@@ -1,8 +1,7 @@
 
-    <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
         <div class="modal-header">
             <h5 class="modal-title" id="modalTitleId">
-                Tambah / Edit Karyawan
+                Employee Detail
             </h5>
             <button
                 type="button"
@@ -12,30 +11,46 @@
             ></button>
         </div>
         <div class="modal-body">
+            <div *ngIf="!isViewOnly; else other_content">
+                <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+                    <div class="form-group">
+                        <label for="name">NIK</label>
+                        <input type="text" class="form-control" id="nik" name="nik" [(ngModel)]="employee.nik"
+                        [ngClass] = " { 'is-invalid' : errors['nik'] }">
+                        <div *ngIf="errors['nik']" class="text-danger">{{ errors['nik'] }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nama</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="employee.name" 
+                        [ngClass] = " { 'is-invalid' : errors['name'] }">
+                        <div *ngIf="errors['name']" class="text-danger">{{ errors['name'] }}</div>
+    
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Unit</label>
+                        <input type="text" class="form-control" id="unit" name="unit" [(ngModel)]="employee.unit" 
+                        [ngClass] = " { 'is-invalid' : errors['unit'] }">
+                        <div *ngIf="errors['unit']" class="text-danger">{{ errors['unit'] }}</div>
+    
+                    </div>
+                </form>
+            </div>
             
-            <div class="form-group">
-                <label for="name">NIK</label>
-                <input type="text" class="form-control" id="nik" name="nik" [(ngModel)]="employee.nik"
-                [ngClass] = " { 'is-invalid' : errors['nik'] }">
-                <div *ngIf="errors['nik']" class="text-danger">{{ errors['nik'] }}</div>
-            </div>
-            <div class="form-group">
-                <label for="name">Nama</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="employee.name" 
-                 [ngClass] = " { 'is-invalid' : errors['name'] }">
-                <div *ngIf="errors['name']" class="text-danger">{{ errors['name'] }}</div>
+            <ng-template #other_content>
+                <div class="container">
+                    <div class="row">
+                        <div *ngIf="employee">
+                            <h2>Detail Employee</h2>
+                            <p><strong>NIK:</strong> {{ employee.nik }}</p>
+                            <p><strong>Name:</strong> {{ employee.name }}</p>
+                            <p><strong>Unit:</strong> {{ employee.unit }}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
 
-            </div>
-            <div class="form-group">
-                <label for="position">Unit</label>
-                <input type="text" class="form-control" id="unit" name="unit" [(ngModel)]="employee.unit" 
-                [ngClass] = " { 'is-invalid' : errors['unit'] }">
-                <div *ngIf="errors['unit']" class="text-danger">{{ errors['unit'] }}</div>
-
-            </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Simpan</button>
             <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Batal</button>
         </div>
-    </form>

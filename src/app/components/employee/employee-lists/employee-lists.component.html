@@ -21,7 +21,7 @@
             <td>{{ employee.name }}</td>
             <td>{{ employee.unit }}</td>
             <td>
-                <a routerLink="/employees/{{employee.employeeId}}" class="btn btn-info">View</a>
+                <a class="btn btn-info" (click)="openModal(employee, true)">View</a>
                 <a class="btn btn-success" (click)="openModal(employee)">Edit</a>
                 <button class="btn btn-danger" (click)="deleteEmployee(employee.employeeId)">Delete</button>
             </td>

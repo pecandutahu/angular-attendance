@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{ mode === 'checkin' ? 'Check-in' : 'Check-out' }}</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()">
+      <div *ngIf="errors['general']" class="alert alert-danger">{{ errors['general'] }}</div>
+      <div class="form-group">
+        <label for="employeeId">Employee</label>
+        <select class="form-control" id="employeeId" [(ngModel)]="presence.employeeId" name="employeeId" required>
+          <!-- Options employees will be loaded dynamically -->
+        </select>
+        <div *ngIf="errors['employeeId']" class="text-danger">{{ errors['employeeId'] }}</div>
+      </div>
+      <div class="form-group">
+        <label for="presenceTypeId">Presence Type</label>
+        <select class="form-control" id="presenceTypeId" [(ngModel)]="presence.presenceTypeId" name="presenceTypeId" required>
+          <!-- Options presence types will be loaded dynamically -->
+        </select>
+        <div *ngIf="errors['presenceTypeId']" class="text-danger">{{ errors['presenceTypeId'] }}</div>
+      </div>
+      <div class="form-group">
+        <label for="coordinates">{{ mode === 'checkin' ? 'Check-in Coordinates' : 'Check-out Coordinates' }}</label>
+        <input type="text" class="form-control" id="coordinates" 
+        name="coordinates" required>
+        <div *ngIf="mode === 'checkin' ? errors['checkinCoordinates'] : errors['checkoutCoordinates']" class="text-danger">{{ mode === 'checkin' ? errors['checkinCoordinates'] : errors['checkoutCoordinates'] }}</div>
+      </div>
+      <div class="form-group">
+        <label for="images">{{ mode === 'checkin' ? 'Check-in Images' : 'Check-out Images' }}</label>
+        <input type="file" class="form-control" id="images" (change)="onFileChange($event, mode === 'checkin' ? 'checkIn' : 'checkOut')" multiple required>
+        <div *ngIf="mode === 'checkin' ? errors['checkInImages'] : errors['checkOutImages']" class="text-danger">{{ mode === 'checkin' ? errors['checkInImages'] : errors['checkOutImages'] }}</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    </form>
+  </div>
+  

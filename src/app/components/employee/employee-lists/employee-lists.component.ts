@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../../../core/models/employee/employee';
+import { Employee } from '../../../core/models/employee';
 import { EmployeeService } from '../../../core/services/employee.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeModalComponent } from '../modal/employee-modal/employee-modal.component';
@@ -11,6 +11,8 @@ import { EmployeeModalComponent } from '../modal/employee-modal/employee-modal.c
 })
 export class EmployeeListsComponent implements OnInit {
   employees: Employee[] = [];
+  isViewOnly: Boolean = false;
+
   constructor( private employeeService: EmployeeService, private modalService: NgbModal ) { }
 
   ngOnInit(): void {
@@ -37,9 +39,10 @@ export class EmployeeListsComponent implements OnInit {
   }
 
 
-  openModal(employee: Employee): void {
+  openModal(employee: Employee, isViewOnly: Boolean = false): void {
     const modalRef = this.modalService.open(EmployeeModalComponent);
     modalRef.componentInstance.employee = { ...employee };
+    modalRef.componentInstance.isViewOnly = isViewOnly;
     modalRef.componentInstance.refreshData.subscribe(() => this.loadEmployees());
   }
   

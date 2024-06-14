@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PresenceType } from '../../../core/models/employee/presenceType';
+import { PresenceType } from '../../../core/models/presenceType';
 import { PresenceTypeServices } from '../../../core/services/presence-type-services.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalpresencetypeComponent } from '../modal/modalpresencetype/modalpresencetype.component';

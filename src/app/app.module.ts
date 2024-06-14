@@ -13,6 +13,8 @@ import { EmployeeModalComponent } from './components/employee/modal/employee-mod
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PresencetypeListsComponent } from './components/presence-type/presencetype-lists/presencetype-lists.component';
 import { ModalpresencetypeComponent } from './components/presence-type/modal/modalpresencetype/modalpresencetype.component';
+import { PresenceListsComponent } from './components/presence/presence-lists/presence-lists.component';
+import { PresenceModalComponent } from './components/presence/presence-modal/presence-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ModalpresencetypeComponent } from './components/presence-type/modal/mod
     EmployeeViewComponent,
     EmployeeModalComponent,
     PresencetypeListsComponent,
-    ModalpresencetypeComponent
+    ModalpresencetypeComponent,
+    PresenceListsComponent,
+    PresenceModalComponent,
   ],
   imports: [
     BrowserModule,

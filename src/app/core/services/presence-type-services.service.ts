@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
-import { PresenceType } from '../models/employee/presenceType';
+import { PresenceType } from '../models/presenceType';
 import { environtment } from '../../../environtment/environtment';
 
 @Injectable({

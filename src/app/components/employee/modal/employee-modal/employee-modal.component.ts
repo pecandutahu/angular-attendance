@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class EmployeeModalComponent implements OnInit{
 
   @Input() employee: { employeeId: any, nik: string, name: string, unit: string } = { employeeId: null, nik: '', name: '', unit: '' };
+  @Input() isViewOnly = false;
   @Output() refreshData = new EventEmitter<void>();
   errors: { [key: string]: string } = {}; // Object to store errors
 
