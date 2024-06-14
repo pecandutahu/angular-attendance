@@ -1,0 +1,42 @@
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">
+            Tambah / Edit Presence Type
+        </h5>
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close" (click)="activeModal.dismiss('Cross click')"
+        ></button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="!isViewOnly; else other_content">
+            <form (ngSubmit)="onSubmit()" #presenceTypeForm="ngForm">
+            
+                <div class="form-group">
+                    <label for="name">Presence Type</label>
+                    <input type="text" class="form-control" id="presenceType" name="presenceType" [(ngModel)]="presenceType.presenceType"
+                    [ngClass] = " { 'is-invalid' : errors['presenceType'] }">
+                    <div *ngIf="errors['presenceType']" class="text-danger">{{ errors['presenceType'] }}</div>
+                </div>
+            </form>
+        </div>
+        <ng-template #other_content>
+            <div class="container">
+                <div class="row">
+                    <div *ngIf="presenceType">
+                        <h2>Detail Presence type</h2>
+                        <p><strong>Presence type:</strong> {{ presenceType.presenceType }}</p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+    <div class="modal-footer">
+        <div *ngIf="!isViewOnly">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Simpan</button>
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Batal</button>
+    </div>

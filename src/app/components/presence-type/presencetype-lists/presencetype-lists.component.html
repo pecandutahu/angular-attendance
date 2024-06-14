@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Tipe Presence</h2>
+    <div>
+        <button class="btn btn-primary" (click)="addPresenceType()"> Tambah Presence Type</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Presence type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let presenceType of presenceTypes; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ presenceType.presenceType }}</td>
+            <td>
+                <a class="btn btn-info" (click)="openModal(presenceType, true)">View</a>
+                <a class="btn btn-success" (click)="openModal(presenceType)">Edit</a>
+                <button class="btn btn-danger" (click)="deletePresenceType(presenceType.presenceTypeId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeListsComponent } from './components/employee/employee-lists/employee-lists.component';
 import { EmployeeViewComponent } from './components/employee/employee-view/employee-view.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
+import { PresencetypeListsComponent } from './components/presence-type/presencetype-lists/presencetype-lists.component';
 
 const routes: Routes = [
   { path: 'employees', component:EmployeeListsComponent },
   { path: 'employees/create', component:EmployeeFormComponent },
   { path: 'employees/:id', component:EmployeeViewComponent },
+  { path: 'presence-types', component:PresencetypeListsComponent },
 ];
 
 @NgModule({
