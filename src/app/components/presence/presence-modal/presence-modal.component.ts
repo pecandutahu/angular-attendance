@@ -157,12 +157,16 @@ export class PresenceModalComponent implements OnInit{
     this.trigger.next();
   }
 
+  resetPhoto(): void {
+    this.webcamImage = null;
+    console.log(!this.webcamImage ? "not" : "still yes" )
+  }
+
 
   handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     const file = this.dataURItoFile(webcamImage.imageAsDataUrl, this.mode === 'checkin' ? 'checkInImage.jpg' : 'checkOutImage.jpg');
     if (this.mode === 'checkin') {
-      console.log([file])
       this.presence.checkInImages = [file];
     } else {
       this.presence.checkOutImages = [file];
