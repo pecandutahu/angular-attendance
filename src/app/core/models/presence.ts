@@ -4,6 +4,8 @@ import { PresenceType } from "./presenceType";
 export class Presence {
     presenceId?: number;
     employeeId?: number;
+    checkIn?: string;
+    checkOut?: string;
     presenceTypeId?: number;
     checkInCoordinates?: string;
     checkOutCoordinates?: string;

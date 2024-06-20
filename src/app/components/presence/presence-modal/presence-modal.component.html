@@ -43,16 +43,13 @@
           <webcam
           [width]="470" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
         </div>
-        
         <div *ngIf="webcamImage">
           <img width="470" [src]="webcamImage.imageAsDataUrl"/>
         </div>
-        <button type="button" class="btn btn-secondary mt-2" (click)="triggerSnapshot()">Take Photo</button>
         
-        <div *ngIf="webcamImage">
-          <button type="button" class="btn btn-secondary mt-2" (click)="resetPhoto()">Reset Photo</button>
-        </div>
-        
+        <button type="button" class="btn btn-info mt-2" (click)="triggerSnapshot()">Take Photo</button>
+        <button *ngIf="webcamImage" type="button" class="btn btn-danger mt-2 ms-1" (click)="resetPhoto()">Reset Photo</button>
+          
       </div>
     </form>
   </div>

@@ -9,9 +9,9 @@
           <tr>
             <th>ID</th>
             <th>Employee</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
             <th>Presence Type</th>
-            <th>Check-in Coordinates</th>
-            <th>Check-out Coordinates</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -20,9 +20,9 @@
             <td>{{ i+1 }}</td>
             <td>{{ presence.Employee?.name }}</td>
 
+            <td>{{ presence.checkIn | date : "dd/MM/yy HH:mm:ss"}}</td>
+            <td>{{ presence.checkOut | date : "dd/MM/yy HH:mm:ss"}}</td>
             <td>{{ presence.PresenceType?.presenceType }}</td>
-            <td>{{ presence.checkInCoordinates }}</td>
-            <td>{{ presence.checkOutCoordinates }}</td>
             <td>
               <button class="btn btn-info" (click)="openCheckoutModal(presence)">Checkout</button>
             </td>
