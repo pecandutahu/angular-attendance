@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environtment } from '../../../environtment/environtment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Presence } from '../models/presence';
 
 @Injectable({
@@ -19,24 +19,33 @@ export class PresenceService {
     const formData = new FormData();
     formData.append('employeeId', presence.employeeId?.toString() || '');
     formData.append('presenceTypeId', presence.presenceTypeId?.toString() || '');
-    formData.append('checkInCoordinates', presence.checkInCoordinates || '');
+    formData.append('coordinates', presence.checkInCoordinates || '');
     presence.checkInImages?.forEach((file, index) => {
-      formData.append('checkInImages', file, file.name);
+      formData.append('images', file, file.name);
     });
 
-    return this.http.post<Presence>(`${environtment.apiURl}/checkin`, formData);
+    return this.http.post<Presence>(`${environtment.apiURl}/presence/checkin`, formData).pipe(
+      catchError(this.handleError)
+    );
   }
 
   checkout(presence: Presence): Observable<Presence> {
     const formData = new FormData();
     formData.append('employeeId', presence.employeeId?.toString() || '');
     formData.append('presenceTypeId', presence.presenceTypeId?.toString() || '');
-    formData.append('checkOutCoordinates', presence.checkOutCoordinates || '');
+    formData.append('coordinates', presence.checkOutCoordinates || '');
     presence.checkOutImages?.forEach((file, index) => {
-      formData.append('checkOutImages', file, file.name);
+      formData.append('images', file, file.name);
     });
 
-    return this.http.post<Presence>(`${environtment.apiURl}/checkout`, formData);
+    return this.http.post<Presence>(`${environtment.apiURl}/presence/checkout`, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  private handleError(error: HttpErrorResponse) {
+    console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+    return throwError(error);
   }
 
 }

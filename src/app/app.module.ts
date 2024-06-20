@@ -15,6 +15,8 @@ import { PresencetypeListsComponent } from './components/presence-type/presencet
 import { ModalpresencetypeComponent } from './components/presence-type/modal/modalpresencetype/modalpresencetype.component';
 import { PresenceListsComponent } from './components/presence/presence-lists/presence-lists.component';
 import { PresenceModalComponent } from './components/presence/presence-modal/presence-modal.component';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PresenceModalComponent } from './components/presence/presence-modal/pre
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    GoogleMapsModule,
+    WebcamModule
 
   ],
   providers: [

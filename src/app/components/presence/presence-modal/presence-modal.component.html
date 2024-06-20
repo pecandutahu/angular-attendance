@@ -1,15 +1,22 @@
-<div class="modal-header">
+  <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">{{ mode === 'checkin' ? 'Check-in' : 'Check-out' }}</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmit()">
+    
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div *ngIf="errors['general']" class="alert alert-danger">{{ errors['general'] }}</div>
       <div class="form-group">
         <label for="employeeId">Employee</label>
         <select class="form-control" id="employeeId" [(ngModel)]="presence.employeeId" name="employeeId" required>
+          <option value=""></option>
+          <option *ngFor="let employee of employees" [value]="employee.employeeId"> {{employee.name}} </option>
           <!-- Options employees will be loaded dynamically -->
         </select>
         <div *ngIf="errors['employeeId']" class="text-danger">{{ errors['employeeId'] }}</div>
@@ -17,23 +24,41 @@
       <div class="form-group">
         <label for="presenceTypeId">Presence Type</label>
         <select class="form-control" id="presenceTypeId" [(ngModel)]="presence.presenceTypeId" name="presenceTypeId" required>
-          <!-- Options presence types will be loaded dynamically -->
+          <option value=""></option>
+          <option *ngFor="let presenceType of presenceTypes" [value]="presenceType.presenceTypeId"> {{ presenceType.presenceType }} </option>
         </select>
         <div *ngIf="errors['presenceTypeId']" class="text-danger">{{ errors['presenceTypeId'] }}</div>
       </div>
       <div class="form-group">
         <label for="coordinates">{{ mode === 'checkin' ? 'Check-in Coordinates' : 'Check-out Coordinates' }}</label>
-        <input type="text" class="form-control" id="coordinates" 
-        name="coordinates" required>
-        <div *ngIf="mode === 'checkin' ? errors['checkinCoordinates'] : errors['checkoutCoordinates']" class="text-danger">{{ mode === 'checkin' ? errors['checkinCoordinates'] : errors['checkoutCoordinates'] }}</div>
+        <google-map height="300px" width="100%" [center]="{lat: latitude, lng: longitude}" [zoom]="15" (mapClick)="onMapClick($event)">
+          <map-marker [position]="{lat: latitude, lng: longitude}"></map-marker>
+        </google-map>
+        <input type="hidden" class="form-control" id="coordinates" [(ngModel)]="coordinates" name="coordinates" required>
+        <div *ngIf="mode === 'checkin' ? errors['checkInCoordinates'] : errors['checkOutCoordinates']" class="text-danger">{{ mode === 'checkin' ? errors['checkInCoordinates'] : errors['checkOutCoordinates'] }}</div>
       </div>
       <div class="form-group">
-        <label for="images">{{ mode === 'checkin' ? 'Check-in Images' : 'Check-out Images' }}</label>
-        <input type="file" class="form-control" id="images" (change)="onFileChange($event, mode === 'checkin' ? 'checkIn' : 'checkOut')" multiple required>
-        <div *ngIf="mode === 'checkin' ? errors['checkInImages'] : errors['checkOutImages']" class="text-danger">{{ mode === 'checkin' ? errors['checkInImages'] : errors['checkOutImages'] }}</div>
+        <label>{{ mode === 'checkin' ? 'Take Check-in Photo' : 'Take Check-out Photo' }}</label>
+        <div style="width: 100%;">
+          <webcam
+          [width]="400" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="triggerSnapshot()">Take Photo</button>
+        <div *ngIf="webcamImage">
+          <img width="400" [src]="webcamImage.imageAsDataUrl"/>
+        </div>
+        
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
     </form>
   </div>
-  
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      Batal
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">Checkin</button>
+  </div>
