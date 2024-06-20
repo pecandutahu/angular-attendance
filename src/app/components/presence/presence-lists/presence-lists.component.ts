@@ -37,4 +37,10 @@ export class PresenceListsComponent implements OnInit {
     modalRef.componentInstance.presence = { ...presence };
     modalRef.componentInstance.refreshData.subscribe(() => this.loadPresences());
   }
+
+  openViewModal(presence: Presence): void {
+    const modalRef = this.modalService.open(PresenceModalComponent);
+    modalRef.componentInstance.mode = 'view';
+    modalRef.componentInstance.presence = { ...presence };
+  }
 }

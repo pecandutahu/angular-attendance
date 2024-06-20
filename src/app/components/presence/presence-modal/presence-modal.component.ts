@@ -10,6 +10,7 @@ import { PresenceTypeServices } from '../../../core/services/presence-type-servi
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { Observable, Subject } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { environtment } from '../../../../environtment/environtment';
 
 @Component({
   selector: 'app-presence-modal',
@@ -18,7 +19,7 @@ import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 })
 export class PresenceModalComponent implements OnInit{
 
-  @Input() mode: 'checkin' | 'checkout' = 'checkin';
+  @Input() mode: 'checkin' | 'checkout' | 'view' = 'checkin';
   @Input() presence: Presence = {};
   @Input() employees: Employee[] = [];
   @Input() presenceTypes: PresenceType[] = [];
@@ -34,6 +35,9 @@ export class PresenceModalComponent implements OnInit{
   allowCameraSwitch: boolean = true;
   deviceId: string = '';
   currentImage?: WebcamImage;
+  checkInCoordinate:any = {};
+  checkOutCoordinate:any = {};
+  baseUriApi = environtment.apiURl + '/';
 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap | any;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow | any;
@@ -47,9 +51,14 @@ export class PresenceModalComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    if(this.mode !== "view") {
       this.loadEmployees();
       this.loadPresenceTypes();
       this.getCurrentLocation();
+    }else{
+      this.checkInCoordinate = this.splitCoordinates(this.presence.checkInCoordinates);
+      this.checkOutCoordinate = this.splitCoordinates(this.presence.checkOutCoordinates);
+    }
   }
 
   loadEmployees(): void {
@@ -65,6 +74,7 @@ export class PresenceModalComponent implements OnInit{
   }
 
   onSubmit(): void {
+    this.coordinates.replace(/"/g, '');
     if (this.mode === 'checkin') {
       if(!this.presence.checkInCoordinates) {
         this.presence.checkInCoordinates = this.coordinates;
@@ -105,13 +115,16 @@ export class PresenceModalComponent implements OnInit{
     }
   }
 
-  updateCoordinates(): void {
-    this.coordinates = this.mode === 'checkin' ? this.presence.checkInCoordinates : this.presence.checkOutCoordinates;
-    if (this.coordinates) {
-      const [lat, lng] = this.coordinates.split(',').map(Number);
-      this.latitude = lat;
-      this.longitude = lng;
+  splitCoordinates(coordinates: any) {
+    const coordinateObject:any = {};
+    coordinates = coordinates.replace(/"/g, '');
+    console.log( coordinates.split(',').map(String), 'ini')
+    if (coordinates) {
+      const [lat, lng] = coordinates.split(',').map(Number);
+      coordinateObject.latitude = lat;
+      coordinateObject.longitude = lng;
     }
+    return coordinateObject;
   }
 
   onMapClick(event: google.maps.MapMouseEvent): void {

@@ -24,7 +24,8 @@
             <td>{{ presence.checkOut | date : "dd/MM/yy HH:mm:ss"}}</td>
             <td>{{ presence.PresenceType?.presenceType }}</td>
             <td>
-              <button class="btn btn-info" (click)="openCheckoutModal(presence)">Checkout</button>
+              <button class="btn btn-info mx-2" (click)="openViewModal(presence)">View</button>
+              <button *ngIf="!presence.checkOut" class="btn btn-info" (click)="openCheckoutModal(presence)">Checkout</button>
             </td>
           </tr>
         </tbody>
