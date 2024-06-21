@@ -93,5 +93,5 @@
     >
       Batal
     </button>
-    <button type="button" class="btn btn-primary" (click)="onSubmit()">Checkin</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">{{ mode === 'checkin' ? 'Checkin' : 'Checkout' }}</button>
   </div>

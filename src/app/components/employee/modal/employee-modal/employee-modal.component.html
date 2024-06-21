@@ -51,6 +51,6 @@
 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Simpan</button>
+            <button *ngIf="!isViewOnly" type="submit" class="btn btn-primary" (click)="onSubmit()">Simpan</button>
             <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Batal</button>
         </div>

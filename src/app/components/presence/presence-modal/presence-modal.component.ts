@@ -118,7 +118,6 @@ export class PresenceModalComponent implements OnInit{
   splitCoordinates(coordinates: any) {
     const coordinateObject:any = {};
     coordinates = coordinates.replace(/"/g, '');
-    console.log( coordinates.split(',').map(String), 'ini')
     if (coordinates) {
       const [lat, lng] = coordinates.split(',').map(Number);
       coordinateObject.latitude = lat;
@@ -172,7 +171,6 @@ export class PresenceModalComponent implements OnInit{
 
   resetPhoto(): void {
     this.webcamImage = null;
-    console.log(!this.webcamImage ? "not" : "still yes" )
   }
 
 
