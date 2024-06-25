@@ -56,8 +56,10 @@ export class PresenceModalComponent implements OnInit{
       this.loadPresenceTypes();
       this.getCurrentLocation();
     }else{
+      
       this.checkInCoordinate = this.splitCoordinates(this.presence.checkInCoordinates);
       this.checkOutCoordinate = this.splitCoordinates(this.presence.checkOutCoordinates);
+      console.log(this.checkInCoordinate, this.checkOutCoordinate)
     }
   }
 
@@ -117,12 +119,12 @@ export class PresenceModalComponent implements OnInit{
 
   splitCoordinates(coordinates: any) {
     const coordinateObject:any = {};
-    coordinates = coordinates.replace(/"/g, '');
-    if (coordinates) {
-      const [lat, lng] = coordinates.split(',').map(Number);
+    if (coordinates.coordinates) {
+      const [lat, lng] = coordinates.coordinates.map(Number);
       coordinateObject.latitude = lat;
       coordinateObject.longitude = lng;
     }
+    console.log(coordinateObject);
     return coordinateObject;
   }
 
