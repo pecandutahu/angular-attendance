@@ -17,6 +17,7 @@ import { PresenceListsComponent } from './components/presence/presence-lists/pre
 import { PresenceModalComponent } from './components/presence/presence-modal/presence-modal.component';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { WebcamModule } from 'ngx-webcam';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WebcamModule } from 'ngx-webcam';
     FormsModule,
     NgbModule,
     GoogleMapsModule,
-    WebcamModule
+    WebcamModule,
+    NgxPaginationModule
 
   ],
   providers: [

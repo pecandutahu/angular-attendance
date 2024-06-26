@@ -12,6 +12,10 @@ import { ModalpresencetypeComponent } from '../modal/modalpresencetype/modalpres
 export class PresencetypeListsComponent implements OnInit {
   presenceTypes : PresenceType[] = [];
   isViewOnly: Boolean = false;
+  filteredData: PresenceType[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  filterText: string = '';
 
   constructor( private presenceTypeService: PresenceTypeServices, private modalService: NgbModal ) { }
 
@@ -22,6 +26,9 @@ export class PresencetypeListsComponent implements OnInit {
   loadPresenceTypes(): void {
     this.presenceTypeService.getPresenceTypes().subscribe((data: PresenceType[]) => {
       this.presenceTypes = data;
+      this.filterData();
+    }, error => {
+      console.log('Error fetching data', error)
     });
   }
 
@@ -51,6 +58,16 @@ export class PresencetypeListsComponent implements OnInit {
         console.log(result);
       }
     })
+  }
+  
+  filterData(): void {
+    this.filteredData = this.presenceTypes.filter(data => 
+      (data?.presenceType?.toLowerCase().includes(this.filterText.toLowerCase()) || '')
+    );
+  }
+
+  onFilterChange(): void {
+    this.filterData();
   }
 
 }

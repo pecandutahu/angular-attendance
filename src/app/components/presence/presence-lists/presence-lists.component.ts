@@ -11,6 +11,10 @@ import { PresenceModalComponent } from '../presence-modal/presence-modal.compone
 })
 export class PresenceListsComponent implements OnInit {
   presences: Presence[] = [];
+  filteredData: Presence[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 2;
+  filterText: string = '';
   
   constructor( private presenceService: PresenceService, private modalService: NgbModal) { }
 
@@ -21,6 +25,7 @@ export class PresenceListsComponent implements OnInit {
   loadPresences(): void {
     this.presenceService.getPresences().subscribe((presences: Presence[]) => {
       this.presences = presences;
+      this.filteredData = this.presences;
     });
   }
 
@@ -42,5 +47,16 @@ export class PresenceListsComponent implements OnInit {
     const modalRef = this.modalService.open(PresenceModalComponent);
     modalRef.componentInstance.mode = 'view';
     modalRef.componentInstance.presence = { ...presence };
+  }
+  
+  filterData(): void {
+    this.filteredData = this.presences.filter(data => 
+      (data?.Employee?.name?.toLowerCase().includes(this.filterText.toLowerCase()) || '') ||
+      (data?.PresenceType?.presenceType?.toLowerCase().includes(this.filterText.toLowerCase()) || '')
+    );
+  }
+
+  onFilterChange(): void {
+    this.filterData();
   }
 }

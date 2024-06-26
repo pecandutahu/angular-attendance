@@ -12,6 +12,10 @@ import { EmployeeModalComponent } from '../modal/employee-modal/employee-modal.c
 export class EmployeeListsComponent implements OnInit {
   employees: Employee[] = [];
   isViewOnly: Boolean = false;
+  filteredEmployees: Employee[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  filterText: string = '';
 
   constructor( private employeeService: EmployeeService, private modalService: NgbModal ) { }
 
@@ -22,6 +26,9 @@ export class EmployeeListsComponent implements OnInit {
   loadEmployees():void {
     this.employeeService.getEmployees().subscribe((employees: Employee[]) => {
       this.employees = employees;
+      this.filterEmployees();
+    }, error => {
+      console.log('Error fetching data', error)
     });
   }
 
@@ -55,6 +62,18 @@ export class EmployeeListsComponent implements OnInit {
         console.log(result);
       }
     });
+  }
+
+  filterEmployees(): void {
+    this.filteredEmployees = this.employees.filter(employee => 
+      (employee?.name?.toLowerCase().includes(this.filterText.toLowerCase()) || '') ||
+      (employee?.nik?.toLowerCase().includes(this.filterText.toLowerCase()) || '') ||
+      (employee?.unit?.toLowerCase().includes(this.filterText.toLowerCase()) || '')
+    );
+  }
+
+  onFilterChange(): void {
+    this.filterEmployees();
   }
 
 }

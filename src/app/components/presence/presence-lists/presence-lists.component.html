@@ -3,6 +3,17 @@
     <button class="btn btn-success mb-3" (click)="openCheckinModal()">
       <i class="fa fa-camera"></i> Check-in
     </button>
+    <div class="row mt-2">
+      <div class="col-md-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by Name or PresenceType"
+          [(ngModel)]="filterText"
+          (input)="onFilterChange()"
+        />
+      </div>
+    </div>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -16,8 +27,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let presence of presences; let i = index ">
-            <td>{{ i+1 }}</td>
+          <tr *ngFor="let presence of filteredData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index ">
+            <td>{{ i + 1 + (currentPage - 1) * itemsPerPage  }}</td>
             <td>{{ presence.Employee?.name }}</td>
 
             <td>{{ presence.checkIn | date : "dd/MM/yy HH:mm:ss"}}</td>
@@ -30,6 +41,7 @@
           </tr>
         </tbody>
       </table>
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
     </div>
   </div>
   
