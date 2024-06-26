@@ -124,7 +124,6 @@ export class PresenceModalComponent implements OnInit{
       coordinateObject.latitude = lat;
       coordinateObject.longitude = lng;
     }
-    console.log(coordinateObject);
     return coordinateObject;
   }
 
