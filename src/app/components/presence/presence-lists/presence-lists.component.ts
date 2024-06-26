@@ -13,7 +13,7 @@ export class PresenceListsComponent implements OnInit {
   presences: Presence[] = [];
   filteredData: Presence[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 2;
+  itemsPerPage: number = 10;
   filterText: string = '';
   
   constructor( private presenceService: PresenceService, private modalService: NgbModal) { }
